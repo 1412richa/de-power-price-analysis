@@ -1,0 +1,19 @@
+# Virtual environment
+.venv/
+
+# Secrets
+.env
+
+# Data (regenerable via fetch_prices.py, and can get large)
+data/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
