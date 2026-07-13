@@ -28,6 +28,9 @@ from pathlib import Path
 import pandas as pd
 from entsoe import EntsoePandasClient
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def fetch_day_ahead_prices(client: EntsoePandasClient, start: pd.Timestamp,
                             end: pd.Timestamp, country_code: str = "DE_LU") -> pd.Series:
@@ -36,6 +39,7 @@ def fetch_day_ahead_prices(client: EntsoePandasClient, start: pd.Timestamp,
 
 
 def main():
+    load_dotenv()
     parser = argparse.ArgumentParser(description="Fetch DE day-ahead prices from ENTSO-E")
     parser.add_argument("--start", default="2022-01-01", help="Start date (YYYY-MM-DD)")
     parser.add_argument("--end", default="2025-01-01", help="End date, exclusive (YYYY-MM-DD)")
