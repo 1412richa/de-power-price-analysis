@@ -67,4 +67,6 @@ Germany's ENTSO-E bidding zone is "DE_LU" (Germany-Luxembourg), effective since 
 The query is chunked by year because very long date ranges can be slow or hit platform-side limits.
 
 ## Status
-Currently, waiting for the API key from ENTSO-E. Next step is to pull and clean the data
+Waiting for the API key access.
+
+Received the API key from ENTSO-E. Pulled the hourly data between 2022 and 2025. There were three entries with a two-hour difference due to DST changes; however, the time continuity is intact. Drastic rare occurance of negative price in mid 2023 with the price reaching -500 eur/mwh, apart from this occurance the negative prices are strongly skewed towards right, meaning they are mostly close to zero. The mean of the negative prices was -11.2 eur/mwh and the median was -1.6 eur/mwh.
