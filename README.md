@@ -7,7 +7,7 @@ German day-ahead prices are famous for two things: the 2022 energy crisis, and i
 
 ### What the trend reveals
 
-![STL decomposition of DE_LU day-ahead prices, 2022-2024](plots/Seasonal Trend Decomposition.png)
+![STL decomposition of DE_LU day-ahead prices, 2022-2024](plots/seasonal_trend_decomposition.png)
 
 An STL decomposition (`period=24`, capturing the daily price cycle) splits the raw series into trend, seasonal, and residual components. The trend panel makes the story visible at a glance: a sustained price spike peaking near €650/MWh around August 2022 — the European energy crisis, driven by gas supply shocks following the Russia-Ukraine war — followed by a steady decline back to a much lower, flatter regime through 2023-2024. The seasonal panel adds a second detail: the daily peak-to-trough swing was itself far larger during the crisis (±200 €/MWh) than after (±50-80 €/MWh) — price *volatility*, not just price *level*, was elevated during the crisis.
 
