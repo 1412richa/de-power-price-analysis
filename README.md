@@ -55,11 +55,26 @@ de-power-price-analysis/
 └── README.md
 ```
 
+## Analysis
+
+### Leading questions
+- How often do negative prices occur, and how extreme are they?
+- When negative prices occur, does the market revert quickly (a brief shock) or does the effect persist?
+- Is negative-price behavior driven by isolated hourly events, or by longer weather-driven regimes (e.g., a windy/sunny multi-day stretch)?
+
+### What was done
+1. **Data validation** — checked hourly continuity across ~26,300 rows (2022–2025). Found three 2-hour gaps, one per year, matching Germany's spring DST transition — expected, not a data quality issue.
+2. **Negative price distribution** — 826 negative-price hours found. Strongly right-skewed: mean -11.2 €/MWh, median -1.6 €/MWh, with a rare extreme of -500 €/MWh. Most negative hours are mild (close to zero); deep drops are rare.
+3. **Autocorrelation (ACF)** on the raw price series showed slow decay (still ~0.75 correlation at 48 hours) with peaks roughly every 12 hours — consistent with the daily double-cycle of demand/solar (morning and evening peaks, midday and overnight troughs), rather than a specific reversion signal.
+4. **Event study** — for each negative-price hour, tracked the price 1/3/6/12/24 hours later, both in absolute terms and relative to the typical price for that hour of day (to separate genuine reversion from the ordinary diurnal cycle).
+
+### Conclusion
+Negative-price shocks show **partial reversion within the same day** (deviation from the hour's typical price shrinks from roughly -130 €/MWh at +1h to -74 €/MWh at +12h), but **do not fully revert even after 24 hours** (deviation widens again to roughly -85 to -98 €/MWh at +24h, nearly as depressed as the +6h mark). This pattern is inconsistent with a single isolated hourly shock, and instead suggests negative-price events cluster over **multi-day periods** — plausibly driven by sustained weather regimes (extended high wind/solar output coinciding with low demand) rather than one-off imbalances.
+
 ## Status
+
+Exploratory analysis phase complete for now — see Analysis above.
 
 Fetched hourly DE_LU day-ahead prices for 2022–2025 (~26,300 rows). Verified time continuity: three 2-hour gaps corresponding to spring DST transitions (one per year, 2022–2024) — expected, not missing data.
 
 Found 826 negative-price hours. Distribution is strongly right-skewed: mean -11.2 €/MWh, median -1.6 €/MWh, with a rare extreme drop to -500 €/MWh, and clustering visible in Q2/Q3 of both 2023 and 2024 — consistent with seasonal solar oversupply.
-
-**Next:** test whether negative-price shocks are mean-reverting (autocorrelation / event-study of price in the hours following a spike).
-
