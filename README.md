@@ -1,5 +1,37 @@
 # German Power Price Analysis
 
+## Analysis: The 2022 Energy Crisis and What Came After
+
+### The question
+German day-ahead prices are famous for two things: the 2022 energy crisis, and increasingly frequent negative prices. Are these two sides of the same story — or opposites? This project set out to find out, starting from a narrower question ("do negative-price shocks revert quickly?") that led to a more revealing one once the data pushed back.
+
+### What the trend reveals
+
+![STL decomposition of DE_LU day-ahead prices, 2022-2024](plots/Seasonal Trend Decomposition.png)
+
+An STL decomposition (`period=24`, capturing the daily price cycle) splits the raw series into trend, seasonal, and residual components. The trend panel makes the story visible at a glance: a sustained price spike peaking near €650/MWh around August 2022 — the European energy crisis, driven by gas supply shocks following the Russia-Ukraine war — followed by a steady decline back to a much lower, flatter regime through 2023-2024. The seasonal panel adds a second detail: the daily peak-to-trough swing was itself far larger during the crisis (±200 €/MWh) than after (±50-80 €/MWh) — price *volatility*, not just price *level*, was elevated during the crisis.
+
+### Crisis era vs. normal era, side by side
+
+| | Crisis era (2022-01 – 2023-02) | Normal era (2023-03 – 2024-12) |
+|---|---|---|
+| Mean price | €219.80/MWh | €83.67/MWh |
+| Median price | €190.95/MWh | €86.91/MWh |
+| Std. deviation | €139.38/MWh | €49.71/MWh |
+| Min price | -€19.04/MWh | **-€500.00/MWh** |
+| Max price | €871.00/MWh | €936.28/MWh |
+| Negative-price hours | 82 / 10,175 (**0.8%**) | 744 / 16,126 (**4.6%**) |
+
+### The finding
+
+The result runs counter to the intuitive story. Negative prices are not a crisis-era phenomenon — they're almost its opposite. During the crisis, scarcity was the defining feature of the market: gas was expensive, demand for alternatives was acute, and the grid essentially never had a surplus moment — only 0.8% of hours went negative, and even those were mild (worst case -€19/MWh). Once the crisis eased, negative prices became **nearly six times more frequent** (4.6% of hours) and far more extreme, including the single most negative hour in the dataset (-€500/MWh).
+
+Read through the lens of the merit order model: negative prices occur when inflexible, low-marginal-cost generation (wind, solar, must-run nuclear) exceeds demand, and producers pay to keep running rather than shut down. The crisis-era market was too *scarce* for that condition to arise; the post-crisis market — with lower demand pressure and a grid increasingly shaped by renewable output — created the oversupply conditions that produce negative prices far more often. Abundance, not stress, is what pushes prices below zero.
+
+This also reframes an earlier finding from this project: an event study of what happens in the hours following a negative-price shock found only partial same-day recovery, with prices still depressed (relative to their usual hour-of-day level) a full 24 hours later — suggestive of multi-day weather-driven regimes rather than isolated hourly blips. Since 90% of all negative-price events in the dataset occur in the normal era, that finding is best understood as a normal-era result, largely unaffected by the crisis period's very different dynamics.
+
+### Project Setup
+
 **Aim:** This project conducts time series analysis of hourly German day-ahead electricity prices from ENTSO-E, focusing on seasonality, spikes, and negative price trends.
 
 **Motivation:** Investigate the occurrence of negative prices and explain them in terms of the merit order model.
