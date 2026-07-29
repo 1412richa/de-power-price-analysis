@@ -9,7 +9,7 @@ German day-ahead prices are famous for two things: the 2022 energy crisis, and i
 
 ![STL decomposition of DE_LU day-ahead prices, 2022-2024](plots/seasonal_trend_decomposition.png)
 
-An STL decomposition (`period=24`, capturing the daily price cycle) splits the raw series into trend, seasonal, and residual components. The trend panel makes the story visible at a glance: a sustained price spike peaking near €650/MWh around August 2022 — the European energy crisis, driven by gas supply shocks following the Russia-Ukraine war — followed by a steady decline back to a much lower, flatter regime through 2023-2024. The seasonal panel adds a second detail: the daily peak-to-trough swing was itself far larger during the crisis (±200 €/MWh) than after (±50-80 €/MWh) — price *volatility*, not just price *level*, was elevated during the crisis.
+An STL decomposition (`period=24`, capturing the daily price cycle) splits the raw series into trend, seasonal, and residual components. The trend panel makes the story visible at a glance: a sustained price spike peaking near €650/MWh around August 2022, the European energy crisis, driven by gas supply shocks following the Russia-Ukraine war, followed by a steady decline back to a much lower, flatter regime through 2023-2024. The seasonal panel adds a second detail: the daily peak-to-trough swing was itself far larger during the crisis (±200 €/MWh) than after (±50-80 €/MWh) — price *volatility*, not just price *level*, was elevated during the crisis.
 
 ### Crisis era vs. normal era, side by side
 
@@ -24,7 +24,7 @@ An STL decomposition (`period=24`, capturing the daily price cycle) splits the r
 
 ### The finding
 
-The result runs counter to the intuitive story. Negative prices are not a crisis-era phenomenon — they're almost its opposite. During the crisis, scarcity was the defining feature of the market: gas was expensive, demand for alternatives was acute, and the grid essentially never had a surplus moment — only 0.8% of hours went negative, and even those were mild (worst case -€19/MWh). Once the crisis eased, negative prices became **nearly six times more frequent** (4.6% of hours) and far more extreme, including the single most negative hour in the dataset (-€500/MWh).
+The result runs counter to the intuitive story. Negative prices are not a crisis-era phenomenon — they're almost its opposite. During the crisis, scarcity was the defining feature of the market: gas was expensive, demand for alternatives was acute, and the grid essentially never had a surplus moment, only 0.8% of hours went negative, and even those were mild (worst case -€19/MWh). Once the crisis eased, negative prices became **nearly six times more frequent** (4.6% of hours) and far more extreme, including the single most negative hour in the dataset (-€500/MWh).
 
 Read through the lens of the merit order model: negative prices occur when inflexible, low-marginal-cost generation (wind, solar, must-run nuclear) exceeds demand, and producers pay to keep running rather than shut down. The crisis-era market was too *scarce* for that condition to arise; the post-crisis market — with lower demand pressure and a grid increasingly shaped by renewable output — created the oversupply conditions that produce negative prices far more often. Abundance, not stress, is what pushes prices below zero.
 
@@ -64,7 +64,7 @@ Then open `notebooks/explore_prices.ipynb` to load the CSV and explore the data 
 ## Data Notes
 
 - Germany's ENTSO-E bidding zone is `DE_LU` (Germany-Luxembourg), effective since the Oct 2018 bidding zone split. The old `DE` code fails for dates after that split.
-- Timestamps are stored in UTC. The underlying market data is published in local time (`Europe/Berlin`), so spring DST transitions ("clocks forward") appear as a missing hour in the raw feed — this is expected, not a data quality issue.
+- Timestamps are stored in UTC. The underlying market data is published in local time (`Europe/Berlin`), so spring DST transitions ("clocks forward") appear as a missing hour in the raw feed. This is expected, and is not a data quality issue.
 - Negative prices are a real, economically meaningful phenomenon (oversupply from renewables/must-run generation exceeding demand), not an error condition.
 
 ## Project Structure
@@ -97,7 +97,7 @@ de-power-price-analysis/
 ### What was done
 1. **Data validation** — checked hourly continuity across ~26,300 rows (2022–2025). Found three 2-hour gaps, one per year, matching Germany's spring DST transition — expected, not a data quality issue.
 2. **Negative price distribution** — 826 negative-price hours found. Strongly right-skewed: mean -11.2 €/MWh, median -1.6 €/MWh, with a rare extreme of -500 €/MWh. Most negative hours are mild (close to zero); deep drops are rare.
-3. **Autocorrelation (ACF)** on the raw price series showed slow decay (still ~0.75 correlation at 48 hours) with peaks roughly every 12 hours — consistent with the daily double-cycle of demand/solar (morning and evening peaks, midday and overnight troughs), rather than a specific reversion signal.
+3. **Autocorrelation (ACF)** on the raw price series showed slow decay (still ~0.75 correlation at 48 hours) with peaks roughly every 12 hours. This is consistent with the daily double-cycle of demand/solar (morning and evening peaks, midday and overnight troughs), rather than a specific reversion signal.
 4. **Event study** — for each negative-price hour, tracked the price 1/3/6/12/24 hours later, both in absolute terms and relative to the typical price for that hour of day (to separate genuine reversion from the ordinary diurnal cycle).
 
 ### Conclusion
