@@ -3,7 +3,7 @@
 ## Analysis: The 2022 Energy Crisis and What Came After
 
 ### The question
-German day-ahead prices are famous for two things: the 2022 energy crisis, and increasingly frequent negative prices. Are these two sides of the same story - or opposites? This project set out to find out, starting from a narrower question ("do negative-price shocks revert quickly?") that led to a more revealing one once the data pushed back.
+German day-ahead prices are famous for two things, the 2022 energy crisis, and increasingly frequent negative prices. Are these two sides of the same story, or opposites? This project set out to find out, starting from a narrower question ("do negative-price shocks revert quickly?") that led to a more revealing one once the data pushed back.
 
 ### What the trend reveals
 
@@ -24,11 +24,11 @@ An STL decomposition (`period=24`, capturing the daily price cycle) splits the r
 
 ### The finding
 
-The result runs counter to the intuitive story. Negative prices are not a crisis-era phenomenon — they're almost its opposite. During the crisis, scarcity was the defining feature of the market: gas was expensive, demand for alternatives was acute, and the grid essentially never had a surplus moment, only 0.8% of hours went negative, and even those were mild (worst case -€19/MWh). Once the crisis eased, negative prices became **nearly six times more frequent** (4.6% of hours) and far more extreme, including the single most negative hour in the dataset (-€500/MWh).
+The result runs counter to the intuitive story. Negative prices are not a crisis-era phenomenon. They're almost its opposite. During the crisis, scarcity was the defining feature of the market. Gas was expensive, demand for alternatives was acute, and the grid essentially never had a surplus moment, only 0.8% of hours went negative, and even those were mild (worst case -€19/MWh). Once the crisis eased, negative prices became **nearly six times more frequent** (4.6% of hours) and far more extreme, including the single most negative hour in the dataset (-€500/MWh).
 
-Read through the lens of the merit order model: negative prices occur when inflexible, low-marginal-cost generation (wind, solar, must-run nuclear) exceeds demand, and producers pay to keep running rather than shut down. The crisis-era market was too *scarce* for that condition to arise; the post-crisis market, with lower demand pressure and a grid increasingly shaped by renewable output, created the oversupply conditions that produce negative prices far more often. Abundance, not stress, is what pushes prices below zero.
+Read through the lens of the merit order model: negative prices occur when inflexible, low-marginal-cost generation (wind, solar, must-run nuclear) exceeds demand, and producers pay to keep running rather than shut down. The crisis-era market was too *scarce* for that condition to arise. The post-crisis market, with lower demand pressure and a grid increasingly shaped by renewable output,  created the oversupply conditions that produce negative prices far more often. Abundance, not stress, is what pushes prices below zero.
 
-This also reframes an earlier finding from this project: an event study of what happens in the hours following a negative-price shock found only partial same-day recovery, with prices still depressed (relative to their usual hour-of-day level) a full 24 hours later, suggestive of multi-day weather-driven regimes rather than isolated hourly blips. Since 90% of all negative-price events in the dataset occur in the normal era, that finding is best understood as a normal-era result, largely unaffected by the crisis period's very different dynamics.
+This also reframes an earlier finding from this project, an event study of what happens in the hours following a negative-price shock found only partial same-day recovery, with prices still depressed (relative to their usual hour-of-day level) a full 24 hours later. This is suggestive of multi-day weather-driven regimes rather than isolated hourly blips. Since 90% of all negative-price events in the dataset occur in the normal era, that finding is best understood as a normal-era result, largely unaffected by the crisis period's very different dynamics.
 
 ### Project Setup
 
@@ -44,7 +44,7 @@ This also reframes an earlier finding from this project: an event study of what 
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
-3. Get a free API key from the [ENTSO-E Transparency Platform](https://transparency.entsoe.eu/) (Account Settings → Web Service).
+3. Get a free API key from the [ENTSO-E Transparency Platform](https://transparency.entsoe.eu/) (Account Settings => Web Service).
 4. Copy `.env.example` to `.env` and add your key:
 ```
 ENTSOE_API_KEY=your_key_here
@@ -129,7 +129,7 @@ Negative-price shocks show **partial reversion within the same day** (deviation 
 
 ## Status
 
-Exploratory analysis phase complete for now — see Analysis above.
+Exploratory analysis phase complete for now. See Analysis above.
 
 Fetched hourly DE_LU day-ahead prices for 2022-2025 (~26,300 rows). Verified time continuity: three 2-hour gaps corresponding to spring DST transitions (one per year, 2022–2024) - expected, not missing data.
 
