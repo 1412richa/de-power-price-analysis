@@ -28,6 +28,10 @@ The result runs counter to the intuitive story. Negative prices are not a crisis
 
 Read through the lens of the merit order model: negative prices occur when inflexible, low-marginal-cost generation (wind, solar, must-run nuclear) exceeds demand, and producers pay to keep running rather than shut down. The crisis-era market was too *scarce* for that condition to arise. The post-crisis market, with lower demand pressure and a grid increasingly shaped by renewable output,  created the oversupply conditions that produce negative prices far more often. Abundance, not stress, is what pushes prices below zero.
 
+![Mean day-ahead price by residual load band, 2018-2020](plots/residual_load_vs_price_binned.png)
+
+The merit order is visible directly in the data: grouping hours into 5 GW residual-load bands (load minus wind and solar), the mean price falls below zero only in the lowest bands, under about 10 GW, and rises steadily as residual load pulls more expensive plants into the market. (Open Power System Data, Oct 2018 – Sep 2020; bands with at least 20 hours.)
+
 This also reframes an earlier finding from this project, an event study of what happens in the hours following a negative-price shock found only partial same-day recovery, with prices still depressed (relative to their usual hour-of-day level) a full 24 hours later. This is suggestive of multi-day weather-driven regimes rather than isolated hourly blips. Since 90% of all negative-price events in the dataset occur in the normal era, that finding is best understood as a normal-era result, largely unaffected by the crisis period's very different dynamics.
 
 ### Project Setup
@@ -119,7 +123,7 @@ de-power-price-analysis/
 - Is negative-price behavior driven by isolated hourly events, or by longer weather-driven regimes (e.g., a windy/sunny multi-day stretch)?
 
 ### What was done
-1. **Data validation**: checked hourly continuity across ~26,300 rows (2022–2025). Found three 2-hour gaps, one per year, matching Germany's spring DST transition - expected, not a data quality issue.
+1. **Data validation**: checked hourly continuity across ~26,300 rows (2022–2024). Found three 2-hour gaps, one per year, matching Germany's spring DST transition - expected, not a data quality issue.
 2. **Negative price distribution**: 826 negative-price hours found. Strongly right-skewed: mean -11.2 €/MWh, median -1.6 €/MWh, with a rare extreme of -500 €/MWh. Most negative hours are mild (close to zero); deep drops are rare.
 3. **Autocorrelation (ACF)** on the raw price series showed slow decay (still ~0.75 correlation at 48 hours) with peaks roughly every 12 hours. This is consistent with the daily double-cycle of demand/solar (morning and evening peaks, midday and overnight troughs), rather than a specific reversion signal.
 4. **Event study**: for each negative-price hour, tracked the price 1/3/6/12/24 hours later, both in absolute terms and relative to the typical price for that hour of day (to separate genuine reversion from the ordinary diurnal cycle).
@@ -131,6 +135,6 @@ Negative-price shocks show **partial reversion within the same day** (deviation 
 
 Exploratory analysis phase complete for now. See Analysis above.
 
-Fetched hourly DE_LU day-ahead prices for 2022-2025 (~26,300 rows). Verified time continuity: three 2-hour gaps corresponding to spring DST transitions (one per year, 2022–2024) - expected, not missing data.
+Fetched hourly DE_LU day-ahead prices for 2022–2024 (~26,300 rows). Verified time continuity: three 2-hour gaps corresponding to spring DST transitions (one per year, 2022–2024) - expected, not missing data.
 
 Found 826 negative-price hours. Distribution is strongly right-skewed: mean -11.2 €/MWh, median -1.6 €/MWh, with a rare extreme drop to -500 €/MWh, and clustering visible in Q2/Q3 of both 2023 and 2024 - consistent with seasonal solar oversupply.
